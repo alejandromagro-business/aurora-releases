@@ -1,0 +1,30 @@
+[Unit]
+Description=Aurora Media Server
+Documentation=https://github.com/alejandromagro-business/aurora
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/aurora -addr :8096 -web /usr/share/aurora/web -data /var/lib/aurora
+# Restart is what makes updating from inside the app work: Aurora replaces its
+# own binary and exits cleanly, and systemd starts the new one. Without this an
+# update would simply stop the server.
+Restart=always
+RestartSec=2
+User=aurora
+Group=aurora
+StateDirectory=aurora
+
+# Aurora reads media from wherever the owner points it and writes only to its
+# own state directory, so it is given no more of the system than that.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target
