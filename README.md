@@ -24,7 +24,7 @@ telemetry, and nothing to sign into.
 - [Updating](#updating)
 - [Where should the server run?](#where-should-the-server-run)
 - [Watching on a TV, a phone or a tablet](#watching-on-a-tv-a-phone-or-a-tablet)
-- [How to…](#how-to)
+- [How to…](#how-to) — including [watching from outside the house](#watch-from-outside-my-house)
 - [API keys](#api-keys)
 - [Troubleshooting](#troubleshooting)
 
@@ -64,7 +64,7 @@ On Windows you can also download a build from
 
 ## Install with an installer
 
-Download from [Releases](../../releases) and run it. Each installer registers Aurora
+Download from [Releases](https://github.com/alejandromagro-business/aurora-releases/releases) and run it. Each installer registers Aurora
 to start with the machine, so your library is there whenever the machine is on.
 
 ### Windows
@@ -196,7 +196,8 @@ scrapers entirely.
 
 **Panel de control → Actualizaciones.**
 
-Aurora checks Releases for a newer build **of its own platform**, shows what changed,
+Aurora checks [aurora-releases](https://github.com/alejandromagro-business/aurora-releases/releases)
+for a newer build **of its own platform**, shows what changed,
 and one button downloads it, swaps itself and restarts. The browser waits for the
 server to come back and offers a reload.
 
@@ -309,6 +310,93 @@ and lists, and you can limit which libraries it sees at all.
 
 **Ajustes → Serie** while an episode is playing. Set the markers by hand, or let Aurora
 find them by comparing the audio of two episodes.
+
+### …make a playlist
+
+**Listas** in the sidebar. Create one, then right-click anything in the library and
+choose *Añadir a una lista*. A list is a view, not a folder: removing something from
+one never touches the file, and lists belong to the account that made them, so two
+people in a house do not share them.
+
+### …sync with Trakt
+
+**Panel de control → Plugins → Trakt** takes a Client ID and Client Secret. Aurora
+ships neither: an application that embeds its own OAuth secret has published it to
+everyone who downloads it. Create a free application at *trakt.tv → Settings → Your
+API Apps*, Redirect URI `urn:ietf:wg:oauth:2.0:oob`, and paste the two values.
+
+Each person then links their own account in **Cuenta → Trakt**: Aurora shows a short
+code, you type it into trakt.tv on whatever device is nearest, and the page notices
+by itself. After that, finishing something here marks it there, and **Traer mi
+historial de Trakt** brings an existing history the other way.
+
+Everything is matched on TMDB ids, so a remake or a translated title cannot be
+confused for the original. Anything Aurora never identified has no id to send and is
+skipped.
+
+### …watch from outside my house
+
+The honest starting point: **do not forward a port**. Putting a media server
+straight onto the public internet means anyone who scans that port finds a login
+page, and the only thing between them and your library is a password. Every
+option below avoids that, and none of them needs a fixed IP address.
+
+**Tailscale — the easy one, and the one to try first.**
+
+It builds a small private network between your own devices. Your server and your
+phone both join it, and the phone can reach the server as if it were on the sofa
+next to it — from anywhere, over mobile data, in a hotel. Nothing is exposed to
+the internet, because there is nothing listening on it: the two devices find each
+other and talk directly, encrypted.
+
+```bash
+# on the server
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up
+```
+
+Install the Tailscale app on the phone or laptop, sign into the same account, and
+Aurora is at `http://<server-name>:8096`. Free for personal use, up to 100
+devices. Turn on **MagicDNS** in the Tailscale admin panel and the name works
+without remembering an address.
+
+The trade-off, stated plainly: everyone who watches has to install Tailscale
+once. For a household that is fine. For sending a link to someone who does not
+have it, use [watch together](#watch-something-with-someone-who-does-not-have-aurora) instead — that needs nothing
+installed at all.
+
+**Cloudflare Tunnel — a real address, nothing to install for viewers.**
+
+The server opens an outbound connection to Cloudflare, and `aurora.yourdomain.com`
+arrives back down it. No port is opened, your home IP is never published, and
+anyone with the link can reach it in a browser. You need a domain on Cloudflare
+(free plan is enough).
+
+```bash
+cloudflared tunnel login
+cloudflared tunnel create aurora
+cloudflared tunnel route dns aurora aurora.yourdomain.com
+cloudflared tunnel run --url http://localhost:8096 aurora
+```
+
+Then run it as a service so it survives a reboot: `cloudflared service install`.
+
+The trade-off: your library is now reachable by anyone who knows the address, so
+the account passwords are doing real work. Cloudflare's own free tier also
+discourages sustained video through a tunnel — fine for a few viewers, not a
+public service.
+
+**WireGuard, if you would rather run it yourself.** Same idea as Tailscale
+without the coordinating service, and one forwarded UDP port instead of a web
+port. More setup, nothing in the middle.
+
+| | Viewers install something | Port opened | Own domain | Good for |
+|---|---|---|---|---|
+| **Tailscale** | yes, once | no | no | your own devices, your household |
+| **Cloudflare Tunnel** | no | no | yes | sharing a link, family elsewhere |
+| **WireGuard** | yes, once | one UDP | no | people who want no third party |
+| **Port forwarding** | no | yes | optional | **not recommended** |
+
 
 ### …back up
 
