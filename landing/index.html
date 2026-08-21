@@ -1,0 +1,611 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aurora — your films, your server, your rules</title>
+<meta name="description" content="A self-hosted media server with a console-grade interface. Your files stay on your hardware. One payment, yours forever." />
+<meta name="theme-color" content="#07080c" />
+<link rel="stylesheet" href="/fonts/fonts.css" />
+<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+
+<meta property="og:title" content="Aurora — your films, your server, your rules" />
+<meta property="og:description" content="A self-hosted media server with a console-grade interface. No cloud, no subscription, no phone-home." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aurora-media.shop" />
+
+
+<style>
+:root{
+  --ink:#07080c;
+  --ink-2:#0c0e14;
+  --ink-3:#11141c;
+  --paper:#eef1f6;
+  --dim:#8b93a7;
+  --mute:#5c6479;
+  --line:rgba(238,241,246,.10);
+  --g1:#3ddc97;   /* aurora green  */
+  --g2:#38bdf8;   /* aurora cyan   */
+  --g3:#a78bfa;   /* aurora violet */
+  --g4:#f472b6;   /* aurora rose   */
+  --display:"Instrument Serif",Georgia,serif;
+  --body:"Archivo",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --edge:clamp(20px,5vw,84px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:var(--body);font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.01em;line-height:1.02;margin:0}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+
+/* ---------- atmosphere: aurora ribbons + film grain ---------- */
+.sky{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ribbon{position:absolute;border-radius:50%;filter:blur(90px);opacity:.30;mix-blend-mode:screen;animation:drift 34s ease-in-out infinite}
+.r1{width:70vw;height:52vw;left:-14vw;top:-24vw;background:radial-gradient(circle at 40% 40%,var(--g2),transparent 68%)}
+.r2{width:62vw;height:46vw;right:-16vw;top:-12vw;background:radial-gradient(circle at 60% 40%,var(--g3),transparent 66%);animation-delay:-9s}
+.r3{width:56vw;height:40vw;left:16vw;top:6vw;background:radial-gradient(circle at 50% 50%,var(--g1),transparent 64%);animation-delay:-18s;opacity:.20}
+.r4{width:48vw;height:34vw;right:4vw;top:52vw;background:radial-gradient(circle at 50% 50%,var(--g4),transparent 66%);animation-delay:-25s;opacity:.16}
+@keyframes drift{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  33%{transform:translate3d(4vw,3vw,0) scale(1.12)}
+  66%{transform:translate3d(-3vw,5vw,0) scale(.95)}
+}
+.grain{position:fixed;inset:-200%;z-index:1;pointer-events:none;opacity:.16;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  animation:grain 700ms steps(2) infinite}
+@keyframes grain{0%{transform:translate(0,0)}50%{transform:translate(-2%,1%)}100%{transform:translate(1%,-1%)}}
+@media (prefers-reduced-motion:reduce){.ribbon,.grain{animation:none}}
+
+main,header,footer{position:relative;z-index:2}
+
+/* ---------- reveal on load / scroll ---------- */
+.rise{opacity:0;transform:translateY(22px);animation:rise .9s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.obs{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+.obs.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rise,.obs{opacity:1;transform:none;animation:none;transition:none}}
+
+/* ---------- nav ---------- */
+header{display:flex;align-items:center;gap:18px;padding:26px var(--edge)}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-size:23px;letter-spacing:.01em}
+.mark{width:26px;height:26px;flex:0 0 auto}
+nav{margin-left:auto;display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--dim)}
+nav a:hover{color:var(--paper)}
+@media (max-width:760px){nav a.hide-sm{display:none}}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;
+  font-weight:600;font-size:15px;border:1px solid transparent;transition:.22s;white-space:nowrap}
+.btn-primary{background:linear-gradient(100deg,var(--g1),var(--g2) 52%,var(--g3));color:#04121a;
+  box-shadow:0 10px 34px rgba(56,189,248,.28)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(56,189,248,.4)}
+.btn-ghost{border-color:var(--line);color:var(--paper);backdrop-filter:blur(8px)}
+.btn-ghost:hover{border-color:rgba(238,241,246,.34);background:rgba(238,241,246,.04)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(46px,8vw,104px) var(--edge) 0;display:grid;grid-template-columns:1.02fr .98fr;
+  gap:clamp(32px,5vw,76px);align-items:center;max-width:1440px;margin:0 auto}
+@media (max-width:1000px){.hero{grid-template-columns:1fr;padding-top:34px}}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--g2);margin-bottom:24px}
+.eyebrow::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--g1),var(--g2))}
+h1{font-size:clamp(50px,7.4vw,104px)}
+h1 em{font-style:italic;background:linear-gradient(96deg,var(--g1),var(--g2) 45%,var(--g3) 78%,var(--g4));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{margin-top:26px;font-size:clamp(17px,1.6vw,20px);color:var(--dim);max-width:53ch}
+.cta{margin-top:38px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.cta .note{font-size:13.5px;color:var(--mute);font-family:var(--mono)}
+.install{margin-top:30px;display:inline-flex;align-items:center;gap:14px;font-family:var(--mono);font-size:13.5px;
+  color:var(--dim);border:1px solid var(--line);border-radius:11px;padding:11px 16px;background:rgba(238,241,246,.025)}
+.install b{color:var(--g1);font-weight:500}
+/* Platforms, not a shell command: separated by a dot so it reads as a list of
+   places it runs rather than as something to copy. */
+.install span+span::before{content:"·";margin-right:14px;color:var(--line)}
+
+/* ---------- app illustration (stylised, not a screenshot) ---------- */
+.screen{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);
+  background:linear-gradient(168deg,var(--ink-3),var(--ink-2));box-shadow:0 46px 110px rgba(0,0,0,.66);aspect-ratio:16/10.4}
+.screen::before,.screen::after{content:"";position:absolute;left:0;right:0;height:13px;background:#04050a;z-index:3}
+.screen::before{top:0}.screen::after{bottom:0}
+.ui{position:absolute;inset:13px 0;display:grid;grid-template-columns:52px 1fr}
+.ui-rail{border-right:1px solid var(--line);padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:11px;background:rgba(4,5,10,.5)}
+.ui-dot{width:19px;height:19px;border-radius:6px;background:rgba(238,241,246,.09)}
+.ui-dot.on{background:linear-gradient(135deg,var(--g1),var(--g2))}
+.ui-body{padding:14px 16px;overflow:hidden}
+.ui-hero{height:34%;border-radius:9px;background:
+  linear-gradient(190deg,rgba(7,8,12,0) 32%,rgba(7,8,12,.92)),
+  radial-gradient(90% 130% at 22% 18%,rgba(167,139,250,.5),transparent 62%),
+  radial-gradient(80% 120% at 78% 12%,rgba(56,189,248,.42),transparent 60%),#0a0d15;
+  position:relative;margin-bottom:14px}
+.ui-hero span{position:absolute;left:14px;bottom:12px;height:8px;border-radius:3px;background:rgba(238,241,246,.75);width:44%}
+.ui-hero span+span{bottom:0;width:26%;height:5px;background:rgba(238,241,246,.3)}
+.ui-label{height:6px;width:82px;border-radius:3px;background:rgba(238,241,246,.24);margin:0 0 10px}
+.ui-row{display:flex;gap:9px}
+.ui-card{flex:0 0 auto;width:16%;aspect-ratio:2/3;border-radius:6px;
+  background:linear-gradient(160deg,rgba(238,241,246,.16),rgba(238,241,246,.05));
+  border:1px solid rgba(238,241,246,.07)}
+.ui-card:nth-child(2){background:linear-gradient(160deg,rgba(61,220,151,.4),rgba(56,189,248,.14))}
+.ui-card:nth-child(4){background:linear-gradient(160deg,rgba(244,114,182,.34),rgba(167,139,250,.14))}
+.caption{margin-top:14px;font-family:var(--mono);font-size:11.5px;color:var(--mute);text-align:center;letter-spacing:.04em}
+
+/* ---------- generic section ---------- */
+section{padding:clamp(76px,10vw,142px) var(--edge);max-width:1320px;margin:0 auto}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--g3);margin-bottom:18px}
+h2{font-size:clamp(35px,4.6vw,62px);max-width:19ch}
+.sub{margin-top:20px;color:var(--dim);max-width:60ch;font-size:17.5px}
+
+/* ---------- features ---------- */
+.grid{margin-top:58px;display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cell{background:var(--ink);padding:30px 28px 34px;transition:background .3s}
+.cell:hover{background:var(--ink-3)}
+.cell h3{font-size:23px;margin-bottom:11px}
+.cell p{color:var(--dim);font-size:15.5px}
+.cell .ico{width:26px;height:26px;margin-bottom:16px;color:var(--g2)}
+
+/* ---------- signature feature ---------- */
+.spot{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+@media (max-width:900px){.spot{grid-template-columns:1fr}}
+/* Screenshot gallery. Two columns that drift at slightly different rates as
+   the page scrolls, so the grid feels alive without anything moving far. */
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,30px);margin-top:clamp(30px,4vw,54px)}
+@media (max-width:760px){.shots{grid-template-columns:1fr}}
+.shot{margin:0}
+.shot.wide{grid-column:1/-1}
+.shot img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:14px;background:var(--ink-2);
+  box-shadow:0 24px 60px rgba(0,0,0,.45);will-change:transform}
+.soon-tag{display:inline-block;margin-left:7px;padding:1px 8px;border:1px solid var(--line);border-radius:999px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);vertical-align:middle}
+.shot figcaption{font-size:13.5px;color:var(--mute);margin-top:12px}
+@media (prefers-reduced-motion:reduce){.shot img{transform:none!important}}
+
+/* ---------- comparison ---------- */
+.tablewrap{margin-top:52px;overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
+th,td{padding:16px 20px;text-align:left;border-bottom:1px solid var(--line)}
+thead th{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);font-weight:500}
+thead th.us{color:var(--g1)}
+tbody tr:last-child td{border-bottom:0}
+td.us{color:var(--paper);font-weight:600;background:rgba(61,220,151,.05)}
+td{color:var(--dim)}
+td:first-child{color:var(--paper)}
+
+/* ---------- pricing ---------- */
+.plans{margin-top:58px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:start}
+@media (max-width:1100px){.plans{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:1080px){.plans{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.plans{grid-template-columns:1fr}}
+.plan{border:1px solid var(--line);border-radius:16px;padding:36px 32px;background:rgba(238,241,246,.018)}
+.plan.pro{border-color:rgba(61,220,151,.32);background:
+  radial-gradient(120% 100% at 0% 0%,rgba(61,220,151,.09),transparent 58%),rgba(238,241,246,.02);position:relative}
+.plan.pro::after{content:attr(data-tag);position:absolute;top:-11px;right:24px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(100deg,var(--g1),var(--g2));color:#04121a;
+  padding:4px 12px;border-radius:999px}
+.plan.sub{border-color:rgba(167,139,250,.28);background:
+  radial-gradient(120% 100% at 0% 0%,rgba(167,139,250,.08),transparent 58%),rgba(238,241,246,.02)}
+.plan h3{font-size:28px}
+.price{margin:18px 0 4px;font-family:var(--display);font-size:52px;line-height:1}
+.price small{font-family:var(--body);font-size:15px;color:var(--dim);font-weight:500}
+.plan .who{color:var(--mute);font-size:14.5px;margin-bottom:26px}
+.plan ul{list-style:none;padding:0;margin:0 0 30px;display:flex;flex-direction:column;gap:12px}
+.plan li{display:flex;gap:11px;font-size:15.5px;color:var(--dim);align-items:flex-start}
+.plan li b{color:var(--paper);font-weight:600}
+.tick{flex:0 0 auto;margin-top:3px;color:var(--g1)}
+
+/* ---------- roadmap ---------- */
+.soon{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.chip{font-family:var(--mono);font-size:12.5px;color:var(--dim);border:1px dashed var(--line);
+  padding:8px 14px;border-radius:999px}
+
+/* ---------- faq ---------- */
+details{border-bottom:1px solid var(--line);padding:22px 0}
+summary{cursor:pointer;list-style:none;font-size:19px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);color:var(--g2);font-size:20px;transition:.25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin-top:14px;color:var(--dim);max-width:74ch;font-size:16px}
+
+/* ---------- closing + footer ---------- */
+.close{text-align:center;padding-bottom:clamp(70px,9vw,120px)}
+.close h2{margin:0 auto;max-width:16ch}
+footer{border-top:1px solid var(--line);padding:38px var(--edge) 54px;display:flex;flex-wrap:wrap;gap:18px;
+  align-items:center;color:var(--mute);font-size:14px}
+footer nav{gap:22px;font-size:14px}
+.legal{width:100%;color:var(--mute);font-size:13px;line-height:1.7;border-top:1px solid var(--line);padding-top:20px;max-width:96ch}
+</style>
+</head>
+
+<body>
+<div class="sky" aria-hidden="true">
+  <div class="ribbon r1"></div><div class="ribbon r2"></div>
+  <div class="ribbon r3"></div><div class="ribbon r4"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<header>
+  <a class="brand" href="#top">
+    <svg class="mark" viewBox="0 0 512 512" aria-hidden="true">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#3ddc97"/><stop offset=".55" stop-color="#38bdf8"/><stop offset="1" stop-color="#a78bfa"/>
+      </linearGradient></defs>
+      <path d="M256 74 L410 438 H344 L256 214 L168 438 H102 Z" fill="url(#lg)"/>
+      <circle cx="256" cy="386" r="27" fill="#38bdf8"/>
+    </svg>
+    Aurora
+  </a>
+  <nav>
+    <a href="#features" class="hide-sm">Features</a>
+    <a href="#compare" class="hide-sm">Compare</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq" class="hide-sm">FAQ</a>
+    <a href="#pricing" class="btn btn-ghost" style="padding:9px 18px">Get Aurora</a>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow rise" style="animation-delay:.05s">Self-hosted media server</div>
+      <h1 class="rise" style="animation-delay:.12s">Your films.<br/>Your server.<br/><em>Your rules.</em></h1>
+      <p class="lede rise" style="animation-delay:.24s">
+        Aurora turns a folder of video files into a beautiful library you can watch on any screen in the house.
+        Nothing is uploaded anywhere. No subscription. No account with us. It runs on your hardware and answers only to you.
+      </p>
+      <div class="cta rise" style="animation-delay:.34s">
+        <a class="btn btn-primary" href="#pricing">Get Aurora Plus</a>
+        <a class="btn btn-ghost" href="#pricing">Download free</a>
+        <span class="note">free core · no time limit</span>
+      </div>
+      <!-- A shell command said "this is a Linux thing", which it is not: there
+           are installers for Windows and macOS too, and someone on Windows
+           reading a tar command decides it is not for them. -->
+      <div class="install rise" style="animation-delay:.44s">
+        <span>Windows</span><span>macOS</span><span>Linux</span>
+      </div>
+    </div>
+
+    <div class="rise" style="animation-delay:.3s">
+      <div class="screen">
+        <div class="ui">
+          <div class="ui-rail">
+            <div class="ui-dot on"></div><div class="ui-dot"></div><div class="ui-dot"></div>
+            <div class="ui-dot"></div><div class="ui-dot"></div>
+          </div>
+          <div class="ui-body">
+            <div class="ui-hero"><span></span><span></span></div>
+            <div class="ui-label"></div>
+            <div class="ui-row">
+              <div class="ui-card"></div><div class="ui-card"></div><div class="ui-card"></div>
+              <div class="ui-card"></div><div class="ui-card"></div><div class="ui-card"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="caption">Stylised illustration of the Aurora interface</p>
+    </div>
+  </div>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features">
+    <div class="obs">
+      <div class="kicker">What you get</div>
+      <h2>A library that looks like it cost a subscription.</h2>
+      <p class="sub">Point Aurora at your folders. It reads the filenames, fetches the artwork and gets out of the way.</p>
+    </div>
+
+    <div class="grid obs">
+      <div class="cell">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></svg>
+        <h3>Films, shows, anime, docs</h3>
+        <p>Seasons and episodes are worked out from your folder names, including the awkward anime numbering everything else gets wrong.</p>
+      </div>
+      <div class="cell">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.9 5.9 6.1.9-4.5 4.4 1 6.1L12 17.8 6.5 20.3l1-6.1L3 9.8l6.1-.9z"/></svg>
+        <h3>Artwork that just appears</h3>
+        <p>Posters, backdrops, cast and episode stills from TMDB, AniList and TheTVDB. Wrong match? Fix it once and lock it so re-scans never undo your work.</p>
+      </div>
+      <div class="cell">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 4l14 8-14 8z"/></svg>
+        <h3>Plays anything, anywhere</h3>
+        <p>Direct play when your device can handle the file, on-demand transcoding when it can't. Resume on the TV exactly where the laptop left off.</p>
+      </div>
+      <div class="cell">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M8 3l4 3 4-3"/></svg>
+        <h3>Every screen you own</h3>
+        <p>An installer for Windows, macOS and Linux, and the browser everywhere else — including your television's, which drives the whole thing with the remote you already have: arrows, OK, back. No box to buy, nothing to sideload. A phone and tablet app is on its way.</p>
+      </div>
+      <div class="cell">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+        <h3>Everyone in the house</h3>
+        <p>Separate accounts with their own watch history, lists and resume points. Unlimited, at no extra cost.</p>
+      </div>
+      <div class="cell">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2a7 7 0 0 0-7 7v3l-2 4h18l-2-4V9a7 7 0 0 0-7-7z"/><path d="M9 20a3 3 0 0 0 6 0"/></svg>
+        <h3>Nothing phones home</h3>
+        <p>No telemetry, no account with us, no licence server. Aurora works with the internet unplugged, and your library is nobody's business but yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREENSHOTS ============ -->
+  <section id="screens">
+    <div class="obs">
+      <div class="kicker">A look inside</div>
+      <h2>This is the whole thing.</h2>
+      <p class="sub">
+        No mock-ups and no staged demo library — these are screens from a running Aurora,
+        pointed at an ordinary folder of files.
+      </p>
+    </div>
+
+    <div class="shots">
+      <figure class="shot wide obs" data-depth="0.05">
+        <img src="shots/inicio.webp" alt="Everything, on one screen" loading="lazy" decoding="async" width="1720" height="720" />
+        <figcaption>The Aurora home: your libraries, what you were part-way through, and whatever landed this week.</figcaption>
+      </figure>
+      <figure class="shot obs" data-depth="0.1">
+        <img src="shots/peliculas.webp" alt="179 films, nothing typed in by hand" loading="lazy" decoding="async" width="1720" height="720" />
+        <figcaption>Posters, backdrops, ratings and collections, all worked out from the filenames.</figcaption>
+      </figure>
+      <figure class="shot obs" data-depth="0.04">
+        <img src="shots/series.webp" alt="Seasons and episodes, sorted out for you" loading="lazy" decoding="async" width="1720" height="720" />
+        <figcaption>Shows are grouped, numbered and counted, including the ones with awkward numbering.</figcaption>
+      </figure>
+      <figure class="shot obs" data-depth="0.09">
+        <img src="shots/anime.webp" alt="Anime that is filed correctly" loading="lazy" decoding="async" width="1720" height="720" />
+        <figcaption>Absolute numbering, seasonal numbering, movies in the middle of a run: handled.</figcaption>
+      </figure>
+      <figure class="shot obs" data-depth="0.06">
+        <img src="shots/documentales.webp" alt="A shelf per kind of thing" loading="lazy" decoding="async" width="1720" height="720" />
+        <figcaption>Any folder can be its own library, with its own artwork and its own rules.</figcaption>
+      </figure>
+      <figure class="shot obs" data-depth="0.11">
+        <img src="shots/colecciones.webp" alt="Collections it builds itself" loading="lazy" decoding="async" width="1720" height="720" />
+        <figcaption>Sequels and trilogies stack up on their own, so a franchise takes one tile, not nine.</figcaption>
+      </figure>
+      <figure class="shot obs" data-depth="0.07">
+        <img src="shots/musica-artistas.webp" alt="Your records, shelved by artist" loading="lazy" decoding="async" width="1600" height="574" />
+        <figcaption>Music opens on artists — and an artist with no photograph anywhere gets one made from their own sleeves.</figcaption>
+      </figure>
+      <figure class="shot obs" data-depth="0.12">
+        <img src="shots/musica-albumes.webp" alt="Every record an artist made" loading="lazy" decoding="async" width="1600" height="572" />
+        <figcaption>Albums, years and track counts read from the files themselves. No music database, nothing typed in.</figcaption>
+      </figure>
+      <figure class="shot obs" data-depth="0.05">
+        <img src="shots/musica-playing.webp" alt="Playing a record" loading="lazy" decoding="async" width="1600" height="572" />
+        <figcaption>The player follows you around the app, shuffles anything on screen, and says what it is actually decoding.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ COMPARE ============ -->
+  <section id="compare">
+    <div class="obs">
+      <div class="kicker">Honestly</div>
+      <h2>How Aurora compares.</h2>
+      <p class="sub">Jellyfin is free and excellent. Plex and Emby are polished and expensive. Aurora sits where we'd want to sit as a customer.</p>
+    </div>
+    <div class="tablewrap obs">
+      <table>
+        <thead>
+          <tr><th>&nbsp;</th><th class="us">Aurora</th><th>Jellyfin</th><th>Plex</th><th>Emby</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Price of the paid tier</td><td class="us">€99 once, or €39/yr</td><td>Free</td><td>≈€250 lifetime</td><td>≈€119 lifetime</td></tr>
+          <tr><td>Account with the vendor</td><td class="us">None, ever</td><td>None</td><td>Required</td><td>Needed for Premiere</td></tr>
+          <tr><td>Paid features verified offline</td><td class="us">Yes — nothing phones home</td><td>n/a</td><td>Periodic sign-in</td><td>Online check</td></tr>
+          <tr><td>Intro detection</td><td class="us">Built in, by audio fingerprint</td><td>Community plugin</td><td>Paid tier</td><td>Paid tier</td></tr>
+          <tr><td>Public-domain film catalogue</td><td class="us">Built in, ad-free</td><td>No</td><td>Free tier with adverts</td><td>No</td></tr>
+          <tr><td>Yearly viewing recap</td><td class="us">Built in</td><td>Plugin</td><td>Yes</td><td>No</td></tr>
+          <tr><td>Themes and full custom CSS</td><td class="us">Free, per device</td><td>Yes</td><td>No</td><td>Limited</td></tr>
+          <tr><td>Watch together, guests need no account</td><td class="us">Paid tier</td><td>Plugin, account needed</td><td>Account needed</td><td>Account needed</td></tr>
+          <tr><td>Connect your own streaming add-ons</td><td class="us">Paid tier</td><td>Plugin</td><td>No</td><td>No</td></tr>
+          <tr><td>Remote-control navigation in the browser</td><td class="us">Yes — no app to install</td><td>Partial</td><td>No</td><td>Partial</td></tr>
+          <tr><td>Subtitle search, any language</td><td class="us">Built in, matched to your file</td><td>Plugin</td><td>Paid tier</td><td>Paid tier</td></tr>
+          <tr><td>Unlimited users included</td><td class="us">Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Phone and tablet app</td><td class="us">In build</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Desktop installer</td><td class="us">Windows, macOS, Linux</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Music libraries</td><td class="us">Free tier</td><td>Yes</td><td>Paid tier</td><td>Paid tier</td></tr>
+          <tr><td>Updates from inside the app</td><td class="us">One button</td><td>Manual</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Hardware transcoding</td><td class="us">Built in, auto-detected</td><td>Yes</td><td>Paid tier</td><td>Paid tier</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption" style="text-align:left;margin-top:14px">
+      Competitor pricing and features as published in 2026 — please check their sites before deciding.
+    </p>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <section id="pricing">
+    <div class="obs">
+      <div class="kicker">Pricing</div>
+      <h2>Pay once. Or don't pay at all.</h2>
+      <p class="sub">The core is free forever and genuinely usable — not a demo. Plus adds the conveniences, and the licence is checked on your own machine.</p>
+    </div>
+
+    <div class="plans obs">
+      <div class="plan">
+        <h3>Aurora</h3>
+        <div class="price">€0</div>
+        <p class="who">Everything you need to watch your own library.</p>
+        <ul>
+          <li><span class="tick">✦</span><span>Unlimited libraries, films, shows and <b>unlimited users</b></span></li>
+          <li><span class="tick">✦</span><span>Automatic artwork and metadata</span></li>
+          <li><span class="tick">✦</span><span>Direct play and on-demand transcoding</span></li>
+          <li><span class="tick">✦</span><span>Watched state, resume, favourites and <b>My list</b></span></li>
+          <li><span class="tick">✦</span><span>Remote-control navigation in any TV browser; phone and tablet app <span class="soon-tag">soon</span></span></li>
+          <li><span class="tick">✦</span><span><b>Playlists</b> — your own, not shared with the rest of the house</span></li>
+          <li><span class="tick">✦</span><span>Yearly viewing recap</span></li>
+          <li><span class="tick">✦</span><span><b>Music libraries</b> — your albums, read from the folders and the files' own tags</span></li>
+          <li><span class="tick">✦</span><span><b>Themes and full custom CSS</b> — restyle every last thing, per device</span></li>
+          <li><span class="tick">✦</span><span>Updates from inside the app, one button</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="https://github.com/alejandromagro-business/aurora-releases">Download</a>
+      </div>
+
+      <div class="plan pro" data-tag="best value">
+        <h3>Plus — Lifetime</h3>
+        <div class="price">€99 <small>once, forever</small></div>
+        <p class="who">Pay once. Yours for good, including every future Plus feature, at no extra cost.</p>
+        <ul>
+          <li><span class="tick">✦</span><span><b>Exact intro &amp; outro detection</b> by audio fingerprint</span></li>
+          <li><span class="tick">✦</span><span><b>Online subtitles in any language</b> OpenSubtitles carries, matched to your exact file</span></li>
+          <li><span class="tick">✦</span><span><b>Parental controls</b> — choose which libraries each account sees</span></li>
+          <li><span class="tick">✦</span><span><b>Classic cinema</b> — a public-domain catalogue you can add in one click</span></li>
+          <li><span class="tick">✦</span><span><b>Hardware transcoding</b> — hands the work to your GPU when there is one</span></li>
+          <li><span class="tick">✦</span><span><b>Keep a copy offline</b> — pull anything down to the server's own disk and keep it there</span></li>
+          <li><span class="tick">✦</span><span><b>Watch together</b> — share a link and watch in step; whoever you send it to needs no account, no app and nothing installed. They get their own volume and their own fullscreen; you keep the remote</span></li>
+          <li><span class="tick">✦</span><span><b>Bring your own sources</b> — connect the add-ons and streaming accounts you already pay for, and what they offer sits beside your own files</span></li>
+          <li><span class="tick">✦</span><span><b>No renewals, ever.</b> No upsell waiting later</span></li>
+        </ul>
+        <a class="btn btn-primary" href="#faq">Buy the lifetime licence</a>
+      </div>
+
+      <div class="plan sub">
+        <h3>Plus — Yearly</h3>
+        <div class="price">€39 <small>/ year</small></div>
+        <p class="who">Nine months' worth for twelve. The sensible one if you are not sure yet.</p>
+        <ul>
+          <li><span class="tick">✦</span><span>Everything in the lifetime plan</span></li>
+          <li><span class="tick">✦</span><span><b>Saves €14 a year</b> against paying monthly</span></li>
+          <li><span class="tick">✦</span><span>Cancel any time; it simply stops renewing</span></li>
+          <li><span class="tick">✦</span><span>What you paid so far <b>comes off the lifetime price</b> if you upgrade</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#faq">Start yearly</a>
+      </div>
+
+      <div class="plan sub">
+        <h3>Plus — Monthly</h3>
+        <div class="price">€4.49 <small>/ month</small></div>
+        <p class="who">Same features, gentler up front. Cancel whenever you like.</p>
+        <ul>
+          <li><span class="tick">✦</span><span>Everything in the lifetime plan</span></li>
+          <li><span class="tick">✦</span><span><b>Cancel any time</b>, in one click, no questions</span></li>
+          <li><span class="tick">✦</span><span>If you stop, <b>Aurora keeps working</b> — you only lose the Plus extras</span></li>
+          <li><span class="tick">✦</span><span>Your libraries, users and history are never touched</span></li>
+          <li><span class="tick">✦</span><span>Switch to lifetime whenever you want</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#faq">Start monthly</a>
+      </div>
+    </div>
+
+    <div class="obs">
+      <p class="sub" style="margin-top:46px"><strong style="color:var(--paper)">Being built next</strong></p>
+      <div class="soon">
+        <span class="chip">Phone and tablet app</span>
+        <span class="chip">Downloads onto your phone, for a flight</span>
+        <span class="chip">Live TV and recording</span>
+        <span class="chip">Access from outside, without opening a port</span>
+                        <span class="chip">iPhone and iPad app</span>
+        <span class="chip">Chromecast and AirPlay</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq">
+    <div class="obs">
+      <div class="kicker">Questions</div>
+      <h2>The things people ask first.</h2>
+    </div>
+    <div class="obs" style="margin-top:44px">
+      <details open>
+        <summary>Does Aurora come with films or shows?</summary>
+        <p>No — and it never will. Aurora is an empty player: you point it at video files you already own and it organises them. The only content it offers is the Classic cinema catalogue, which is public-domain films hosted by the Internet Archive. Aurora links to them; it doesn't host or distribute anything.</p>
+      </details>
+      <details>
+        <summary>Where does my media live? Do you see any of it?</summary>
+        <p>On your own machine, and no. There is no cloud component. We never see your files, your library, or even that you're running Aurora. The licence key is verified by your own server using cryptography — it never contacts us, and Aurora keeps working with the network unplugged.</p>
+      </details>
+      <details>
+        <summary>What hardware do I need?</summary>
+        <p>Less than you'd think. A Raspberry Pi 5 runs it comfortably, and so does any old laptop, NAS or mini PC. It ships as a Docker image or a single binary for Linux, Windows and macOS. Transcoding is the only heavy part, and it's avoided whenever your device can play the file as-is.</p>
+      </details>
+      <details>
+        <summary>Is €99 really one payment?</summary>
+        <p>Yes. One payment, one licence, yours for good, including future Plus features. The monthly and yearly options exist for people who prefer not to pay up front, and everything you have paid on them comes off the lifetime price if you upgrade later. There's no upsell waiting.</p>
+      </details>
+      <details>
+        <summary>What happens if I stop paying the monthly plan?</summary>
+        <p>Aurora keeps working. Your libraries, users, history and settings are untouched — you simply lose the Plus conveniences until you renew. Nothing is held hostage, and a lapsed licence can never lock you out of your own library.</p>
+      </details>
+      <details>
+        <summary>Can I move it to another machine?</summary>
+        <p>Yes. The licence isn't tied to hardware, because that punishes honest people who reinstall or swap a disk. Move the data folder across and carry on.</p>
+      </details>
+      <details>
+        <summary>How do I get my key after paying?</summary>
+        <p>It arrives by email. Paste it into Dashboard → Aurora Plus and everything unlocks immediately, no restart and no internet connection needed.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ CLOSE ============ -->
+  <section class="close obs">
+    <h2>Stop renting access to your own films.</h2>
+    <div class="cta" style="justify-content:center;margin-top:34px">
+      <a class="btn btn-primary" href="#pricing">Get Aurora Plus</a>
+      <a class="btn btn-ghost" href="https://github.com/alejandromagro-business/aurora-releases">Download the free core</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© <span id="yr">2026</span> Aurora</span>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/refunds">Refunds</a>
+  </nav>
+  <p class="legal">
+    Aurora is media-player software. It does not supply, host, index or distribute copyrighted content, and you are
+    responsible for holding the rights to whatever you play through it. Plex, Emby and Jellyfin are trademarks of their
+    respective owners and are referenced here only for comparison.
+  </p>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Scroll reveals
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px' });
+  document.querySelectorAll('.obs').forEach((el) => io.observe(el));
+
+  // Screenshot parallax: each shot drifts by its own small factor as it
+  // crosses the viewport. Read positions and write transforms inside one
+  // rAF frame, so scrolling never has to wait on layout.
+  const shots = [...document.querySelectorAll('.shot img')].map((img) => ({
+    img, depth: parseFloat(img.closest('.shot').dataset.depth) || 0.06,
+  }));
+  if (shots.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let queued = false;
+    const draw = () => {
+      queued = false;
+      const mid = innerHeight / 2;
+      for (const s of shots) {
+        const r = s.img.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) continue;
+        s.img.style.transform = `translate3d(0,${((r.top + r.height / 2 - mid) * -s.depth).toFixed(1)}px,0)`;
+      }
+    };
+    const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(draw); } };
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    draw();
+  }
+</script>
+</body>
+</html>

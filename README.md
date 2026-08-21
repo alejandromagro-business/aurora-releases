@@ -12,6 +12,12 @@ telemetry, and nothing to sign into.
 > This repository is where Aurora is published and documented, and where to report a
 > problem. The source code is not here: Aurora is licensed software, not open source.
 > Everything needed to install it, run it and get help with it is below.
+
+**Found a bug, or something behaving oddly?** [Open an issue](../../issues/new) — the
+version from **Panel de control → Actualizaciones**, what you did, and what happened
+instead is enough to start with.
+
+`landing/` holds the source of [aurora-media.shop](https://aurora-media.shop).
 ---
 
 ## Contents

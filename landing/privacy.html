@@ -1,0 +1,148 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy — Aurora</title>
+<meta name="description" content="What this site and the Aurora software collect, and what they don't." />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#07080c" />
+<link rel="stylesheet" href="/fonts/fonts.css" />
+<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/legal.css" />
+</head>
+<body>
+
+<header class="bar">
+  <a class="brand" href="/"><img src="/icon.svg" alt="" /> Aurora</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/terms">Terms</a>
+    <a href="/refunds">Refunds</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Privacy</h1>
+  <p class="updated">Last updated: <span class="fill">14 August 2026</span></p>
+
+  <div class="notice">
+    <p><strong>Before publishing:</strong> replace every <span class="fill">[[PLACEHOLDER]]</span> on this page.
+    This is a starting draft written for a small software seller in the EU, not legal advice — have it checked
+    if you are unsure.</p>
+  </div>
+
+  <div class="tldr">
+    <p>The Aurora software collects nothing and contacts no server of ours, ever. This website has no analytics
+    and sets no cookies. If you buy a licence, our payment provider handles your details, and we see your name,
+    email and country — enough to issue the key and keep the invoice.</p>
+  </div>
+
+  <h2>Who is responsible</h2>
+  <p>
+    The data controller is <span class="fill">Aurora</span>, operating from
+    <span class="fill">Spain</span>. Payments and billing data are handled by
+    <span class="fill">[[PAYMENT PROVIDER]]</span> as merchant of record, who is the seller and the
+    controller for everything to do with the transaction. Contact: hello@aurora-media.shop.
+  </p>
+
+  <h2>The Aurora software</h2>
+  <p>
+    Aurora runs on hardware you control. It has no telemetry, no crash reporting, no update ping and no account
+    system of ours. It never sends us your library, your viewing history or anything else, because there is
+    nowhere for it to send them.
+  </p>
+  <p>
+    <strong>Licence keys are verified offline.</strong> A key is a signed token; your server checks the signature
+    with a public key built into the binary. Activating Aurora Plus makes no network request and works with the
+    machine disconnected from the internet.
+  </p>
+  <p>
+    Aurora does reach third parties that <em>you</em> configure, using <em>your</em> credentials, directly from
+    your server: TMDB for artwork and descriptions, AniList for anime, and optionally TheTVDB, OpenSubtitles and
+    any source adapters you add. Those requests never pass through us. Each of those services has its own privacy
+    policy and your keys stay in your own database.
+  </p>
+
+  <h2>This website</h2>
+  <table>
+    <tr><th>What</th><th>Why</th><th>Kept</th></tr>
+    <tr>
+      <td>Server access logs (IP, page, user agent, timestamp)</td>
+      <td>Kept by our host to serve the site and mitigate abuse. Legitimate interest.</td>
+      <td><span class="fill">30 days</span></td>
+    </tr>
+    <tr>
+      <td>Web fonts</td>
+      <td>Served from this domain. Rendering this page contacts no third party at all.</td>
+      <td>—</td>
+    </tr>
+  </table>
+  <p>
+    There is no analytics, no advertising, no tracking pixel, and no cookie banner because there are no cookies
+    to consent to. The fonts are self-hosted, so no request leaves for Google or anyone else when you load a
+    page here. The site is hosted by <span class="fill">Vercel Inc.</span>, which acts as a
+    processor.
+  </p>
+
+  <h2>Buying a licence</h2>
+  <p>
+    Payments are handled by <span class="fill">[[PAYMENT PROVIDER]]</span>, who acts as merchant of record.
+    <strong>We never see your card details</strong> — they never reach our systems. From the purchase we receive
+    your name, email address, country and the order reference.
+  </p>
+  <ul>
+    <li><strong>Why:</strong> to deliver the licence key you bought (performance of a contract) and to keep the
+      invoice (legal obligation).</li>
+    <li><strong>How long:</strong> the licence record for as long as the licence is valid; invoices for
+      <span class="fill">6 years, as Spanish accounting rules require</span>.</li>
+    <li><strong>Who else sees it:</strong> the payment provider, and nobody else. Your data is not sold, rented
+      or shared for advertising, and it is not used to train anything.</li>
+  </ul>
+  <p>
+    If you email us for support, we keep that thread until the matter is closed and for a reasonable period
+    afterwards.
+  </p>
+
+  <h2>Transfers outside the EEA</h2>
+  <p>
+    Our hosting and payment providers may process data outside the European Economic Area under the European
+    Commission's standard contractual clauses or an adequacy decision.
+  </p>
+
+  <h2>Your rights</h2>
+  <p>
+    You can ask for a copy of your data, its correction or deletion, restriction of processing, portability, and
+    you can object to processing based on legitimate interest. Write to
+    hello@aurora-media.shop and we will answer within one month. If you are not satisfied
+    you can complain to your national data-protection authority
+    (<span class="fill">the Agencia Española de Protección de Datos, AEPD</span>).
+  </p>
+  <p>
+    Deleting your data does not switch off a licence key you already hold: keys are verified offline and your
+    copy keeps working.
+  </p>
+
+  <h2>Children</h2>
+  <p>Aurora is not directed at children and we do not knowingly collect their data.</p>
+
+  <h2>Changes</h2>
+  <p>
+    If this policy changes, the date at the top changes with it. Material changes affecting existing customers
+    will be sent to the email address on the order.
+  </p>
+</main>
+
+<footer>
+  <span>© <span id="yr">2026</span> Aurora</span>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/refunds">Refunds</a>
+  </nav>
+</footer>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
