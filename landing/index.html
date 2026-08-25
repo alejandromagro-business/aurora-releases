@@ -9,10 +9,34 @@
 <link rel="stylesheet" href="/fonts/fonts.css" />
 <link rel="icon" href="/icon.svg" type="image/svg+xml" />
 
+<link rel="canonical" href="https://aurora-media.shop/" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
+
+<!-- Fonts the first screen cannot be drawn without. Discovered in the markup
+     they would be found only after the stylesheet had loaded and been parsed,
+     which is two round trips into the page load. -->
+<link rel="preload" href="/fonts/Archivo-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/InstrumentSerif-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
 <meta property="og:title" content="Aurora — your films, your server, your rules" />
 <meta property="og:description" content="A self-hosted media server with a console-grade interface. No cloud, no subscription, no phone-home." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://aurora-media.shop" />
+<meta property="og:url" content="https://aurora-media.shop/" />
+<meta property="og:site_name" content="Aurora" />
+<meta property="og:locale" content="en" />
+<!-- A real screenshot rather than a logo card: what is being sold here is how
+     it looks, and a link with no image at all is a grey box in every chat app. -->
+<meta property="og:image" content="https://aurora-media.shop/og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="The Aurora home screen: libraries, continue watching and recent additions." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Aurora — your films, your server, your rules" />
+<meta name="twitter:description" content="A self-hosted media server with a console-grade interface. No cloud, no subscription, no phone-home." />
+<meta name="twitter:image" content="https://aurora-media.shop/og.jpg" />
 
 
 <style>
@@ -218,7 +242,192 @@ footer{border-top:1px solid var(--line);padding:38px var(--edge) 54px;display:fl
   align-items:center;color:var(--mute);font-size:14px}
 footer nav{gap:22px;font-size:14px}
 .legal{width:100%;color:var(--mute);font-size:13px;line-height:1.7;border-top:1px solid var(--line);padding-top:20px;max-width:96ch}
+
+/* ---------- mobile navigation ---------- */
+/* The links used to be hidden below 760px and that was the whole mobile menu:
+   on a phone the site had no navigation at all. */
+.menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:11px;
+  padding:9px 11px;color:var(--paper);cursor:pointer;line-height:0}
+.menu-btn svg{width:20px;height:20px}
+.menu-btn[aria-expanded="true"] .ic-open,.menu-btn[aria-expanded="false"] .ic-close{display:none}
+@media (max-width:760px){
+  .menu-btn{display:block}
+  nav{position:fixed;inset:74px 12px auto 12px;z-index:40;flex-direction:column;align-items:stretch;gap:0;
+    background:rgba(9,11,17,.97);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px;
+    padding:8px;box-shadow:0 30px 80px rgba(0,0,0,.6);
+    opacity:0;visibility:hidden;transform:translateY(-10px);transition:.22s}
+  nav.open{opacity:1;visibility:visible;transform:none}
+  nav a{padding:14px 16px;border-radius:11px;font-size:16px;color:var(--paper)}
+  nav a:hover,nav a:focus-visible{background:rgba(238,241,246,.06)}
+  nav a.hide-sm{display:block}
+  nav a.btn{justify-content:center;margin-top:6px}
+}
+
+/* ---------- back to top ---------- */
+.totop{position:fixed;right:18px;bottom:18px;z-index:35;width:46px;height:46px;border-radius:50%;
+  display:grid;place-items:center;border:1px solid var(--line);background:rgba(9,11,17,.86);backdrop-filter:blur(10px);
+  color:var(--paper);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:.25s}
+.totop.show{opacity:1;visibility:visible;transform:none}
+.totop:hover{border-color:rgba(238,241,246,.34);background:rgba(238,241,246,.08)}
+.totop svg{width:18px;height:18px}
+
+/* ---------- sticky call to action, phones only ---------- */
+/* Hidden while the pricing section is on screen: a bar telling you to go to
+   the prices while you are reading the prices is just something in the way. */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:34;display:none;gap:12px;align-items:center;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(7,8,12,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);
+  transform:translateY(110%);transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.sticky-cta.show{transform:none}
+.sticky-cta .btn{flex:1;justify-content:center}
+.sticky-cta small{color:var(--mute);font-family:var(--mono);font-size:11.5px;line-height:1.3;max-width:11ch}
+@media (max-width:760px){
+  .sticky-cta{display:flex}
+  .totop{bottom:calc(78px + env(safe-area-inset-bottom))}
+}
+
+/* ---------- comparison rows respond to the pointer ---------- */
+tbody tr{transition:background .18s}
+tbody tr:hover{background:rgba(238,241,246,.035)}
+
+/* ---------- help ---------- */
+.help{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:44px}
+.help-card{border:1px solid var(--line);border-radius:16px;padding:28px;background:rgba(238,241,246,.018);
+  transition:border-color .25s,background .25s}
+.help-card:hover{border-color:rgba(238,241,246,.22);background:rgba(238,241,246,.035)}
+.help-card h3{font-size:22px;margin-bottom:10px}
+.help-card p{color:var(--dim);font-size:15.5px;margin-bottom:18px}
+.help-card .ico{width:24px;height:24px;color:var(--g2);margin-bottom:14px}
+
+/* ---------- visible focus, for anyone using a keyboard or a TV remote ---------- */
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:2px solid var(--g2);outline-offset:3px;border-radius:6px}
+
+/* Skip link: the first thing a screen reader or a Tab press meets. */
+.skip{position:absolute;left:-9999px;top:0;z-index:60;background:var(--ink-3);color:var(--paper);
+  padding:12px 18px;border-radius:0 0 12px 0;border:1px solid var(--line)}
+.skip:focus{left:0}
 </style>
+
+<!-- Structured data. The questions are lifted from the FAQ below rather
+     than written twice: a rich result that disagrees with the page is
+     worse than no rich result. No rating is claimed, because there are no
+     reviews yet and inventing them is what gets a site penalised. -->
+<script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Aurora",
+  "applicationCategory": "MultimediaApplication",
+  "applicationSubCategory": "Media server",
+  "operatingSystem": "Windows, macOS, Linux",
+  "url": "https://aurora-media.shop/",
+  "description": "A self-hosted media server with a console-grade interface. Films, series, anime, documentaries and music, scanned from your own folders and streamed to any screen in the house.",
+  "screenshot": "https://aurora-media.shop/og.jpg",
+  "softwareHelp": "https://github.com/alejandromagro-business/aurora-releases",
+  "offers": [
+   {
+    "@type": "Offer",
+    "name": "Aurora",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "description": "The free core, with no time limit."
+   },
+   {
+    "@type": "Offer",
+    "name": "Aurora Plus — Lifetime",
+    "price": "99",
+    "priceCurrency": "EUR",
+    "description": "One payment, including every future Plus feature."
+   },
+   {
+    "@type": "Offer",
+    "name": "Aurora Plus — Yearly",
+    "price": "39",
+    "priceCurrency": "EUR",
+    "description": "Billed once a year. Cancel any time."
+   },
+   {
+    "@type": "Offer",
+    "name": "Aurora Plus — Monthly",
+    "price": "4.49",
+    "priceCurrency": "EUR",
+    "description": "Billed monthly. Cancel any time."
+   }
+  ]
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "Does Aurora come with films or shows?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "No — and it never will. Aurora is an empty player: you point it at video files you already own and it organises them. The only content it offers is the Classic cinema catalogue, which is public-domain films hosted by the Internet Archive. Aurora links to them; it doesn't host or distribute anything."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Where does my media live? Do you see any of it?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "On your own machine, and no. There is no cloud component. We never see your files, your library, or even that you're running Aurora. The licence key is verified by your own server using cryptography — it never contacts us, and Aurora keeps working with the network unplugged."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "What hardware do I need?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Less than you'd think. A Raspberry Pi 5 runs it comfortably, and so does any old laptop, NAS or mini PC. It ships as a Docker image or a single binary for Linux, Windows and macOS. Transcoding is the only heavy part, and it's avoided whenever your device can play the file as-is."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Is €99 really one payment?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. One payment, one licence, yours for good, including future Plus features. The monthly and yearly options exist for people who prefer not to pay up front, and everything you have paid on them comes off the lifetime price if you upgrade later. There's no upsell waiting."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "What happens if I stop paying the monthly plan?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Aurora keeps working. Your libraries, users, history and settings are untouched — you simply lose the Plus conveniences until you renew. Nothing is held hostage, and a lapsed licence can never lock you out of your own library."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can I move it to another machine?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. The licence isn't tied to hardware, because that punishes honest people who reinstall or swap a disk. Move the data folder across and carry on."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How do I get my key after paying?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "It arrives by email. Paste it into Dashboard → Aurora Plus and everything unlocks immediately, no restart and no internet connection needed."
+    }
+   }
+  ]
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Aurora",
+  "url": "https://aurora-media.shop/",
+  "logo": "https://aurora-media.shop/icon.svg"
+ }
+]
+</script>
 </head>
 
 <body>
@@ -227,6 +436,8 @@ footer nav{gap:22px;font-size:14px}
   <div class="ribbon r3"></div><div class="ribbon r4"></div>
 </div>
 <div class="grain" aria-hidden="true"></div>
+
+<a class="skip" href="#top">Skip to content</a>
 
 <header>
   <a class="brand" href="#top">
@@ -239,11 +450,16 @@ footer nav{gap:22px;font-size:14px}
     </svg>
     Aurora
   </a>
-  <nav>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+    <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+  <nav id="nav">
     <a href="#features" class="hide-sm">Features</a>
     <a href="#compare" class="hide-sm">Compare</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq" class="hide-sm">FAQ</a>
+    <a href="#help" class="hide-sm">Help</a>
     <a href="#pricing" class="btn btn-ghost" style="padding:9px 18px">Get Aurora</a>
   </nav>
 </header>
@@ -548,6 +764,51 @@ footer nav{gap:22px;font-size:14px}
     </div>
   </section>
 
+
+  <!-- ============ HELP ============ -->
+  <section id="help">
+    <div class="obs">
+      <div class="kicker">Help</div>
+      <h2>Something broken? Say so.</h2>
+      <p class="sub">
+        Aurora is built by one person, so a problem you report is read by the person who can fix it.
+        There is no ticket queue and no support tier — you get an answer.
+      </p>
+    </div>
+    <div class="help obs">
+      <div class="help-card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+        <h3>Report a bug</h3>
+        <p>
+          The version from <b>Dashboard → Updates</b>, what you did and what happened instead is enough to start with.
+          Issues are public, so anyone hitting the same thing can see it is known.
+        </p>
+        <a class="btn btn-ghost" href="https://github.com/alejandromagro-business/aurora-releases/issues/new" rel="noopener">Open an issue</a>
+      </div>
+      <div class="help-card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M4 20h16"/></svg>
+        <h3>Ask for a feature</h3>
+        <p>
+          Most of what Aurora does now started as somebody saying it should. The roadmap above is not fixed,
+          and something people keep asking for moves up it.
+        </p>
+        <a class="btn btn-ghost" href="https://github.com/alejandromagro-business/aurora-releases/issues/new" rel="noopener">Suggest something</a>
+      </div>
+      <div class="help-card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <h3>Anything about buying</h3>
+        <p>
+          A licence key that did not arrive, an invoice, a refund, or a question before you pay.
+          Write and you will get a reply <b>within two working days</b>.
+        </p>
+        <!-- CHECK BEFORE THIS GOES LIVE: this address has to exist and reach
+             you. A support address on a paid product that bounces is worse
+             than no address at all. Same address is used on /thanks. -->
+        <a class="btn btn-ghost" href="mailto:hola@aurora-media.shop">hola@aurora-media.shop</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ CLOSE ============ -->
   <section class="close obs">
     <h2>Stop renting access to your own films.</h2>
@@ -564,6 +825,7 @@ footer nav{gap:22px;font-size:14px}
     <a href="#features">Features</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
+    <a href="#help">Help</a>
     <a href="/privacy">Privacy</a>
     <a href="/terms">Terms</a>
     <a href="/refunds">Refunds</a>
@@ -575,37 +837,18 @@ footer nav{gap:22px;font-size:14px}
   </p>
 </footer>
 
-<script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Scroll reveals
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px' });
-  document.querySelectorAll('.obs').forEach((el) => io.observe(el));
+<button class="totop" id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
-  // Screenshot parallax: each shot drifts by its own small factor as it
-  // crosses the viewport. Read positions and write transforms inside one
-  // rAF frame, so scrolling never has to wait on layout.
-  const shots = [...document.querySelectorAll('.shot img')].map((img) => ({
-    img, depth: parseFloat(img.closest('.shot').dataset.depth) || 0.06,
-  }));
-  if (shots.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    let queued = false;
-    const draw = () => {
-      queued = false;
-      const mid = innerHeight / 2;
-      for (const s of shots) {
-        const r = s.img.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > innerHeight) continue;
-        s.img.style.transform = `translate3d(0,${((r.top + r.height / 2 - mid) * -s.depth).toFixed(1)}px,0)`;
-      }
-    };
-    const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(draw); } };
-    addEventListener('scroll', onScroll, { passive: true });
-    addEventListener('resize', onScroll);
-    draw();
-  }
-</script>
+<!-- Phones only. The hero CTA scrolls away after one swipe and the pricing is
+     a long way down, so on a phone there was nothing to tap for most of the page. -->
+<div class="sticky-cta" id="stickyCta">
+  <small>Free core · no time limit</small>
+  <a class="btn btn-primary" href="#pricing">See pricing</a>
+</div>
+
+<script src="/main.js" defer></script>
 </body>
 </html>

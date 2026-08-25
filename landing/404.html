@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Page not found — Aurora</title>
+<meta name="description" content="That page isn't here. The ones that are, are listed below." />
+<!-- A missing page is not something to index, but it must still be crawlable
+     so the links out of it are followed. -->
+<meta name="robots" content="noindex,follow" />
+<meta name="theme-color" content="#07080c" />
+<link rel="stylesheet" href="/fonts/fonts.css" />
+<link rel="stylesheet" href="/legal.css" />
+<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style>
+  main{text-align:center;padding-top:clamp(60px,12vw,120px)}
+  .code{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin:0 0 18px}
+  .lost{color:var(--dim);max-width:46ch;margin:18px auto 0}
+  .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:40px}
+  .links a{border:1px solid var(--line);border-radius:999px;padding:11px 20px;color:var(--paper);
+    font-size:15px;transition:.2s}
+  .links a:hover{border-color:rgba(238,241,246,.34);background:rgba(238,241,246,.04);text-decoration:none}
+  .links a.go{background:linear-gradient(100deg,var(--g1),var(--g2));color:#04121a;font-weight:600;border-color:transparent}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="brand" href="/"><img src="/icon.svg" alt="" /> Aurora</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+  </nav>
+</header>
+
+<main>
+  <p class="code">Error 404</p>
+  <h1>This page isn't here.</h1>
+  <p class="lost">
+    Either it moved or the address has a typo in it. Nothing is broken on your side —
+    here is everything that does exist.
+  </p>
+  <div class="links">
+    <a class="go" href="/">Home</a>
+    <a href="/#features">Features</a>
+    <a href="/#screens">Screenshots</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/#help">Help</a>
+    <a href="https://github.com/alejandromagro-business/aurora-releases" rel="noopener">Download</a>
+  </div>
+</main>
+
+<footer>
+  <span>&copy; Aurora</span>
+  <nav>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="/refunds">Refunds</a>
+  </nav>
+</footer>
+
+</body>
+</html>

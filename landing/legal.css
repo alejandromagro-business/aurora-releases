@@ -69,3 +69,14 @@ footer{
 }
 footer nav{margin-left:auto;display:flex;gap:20px}
 footer a{color:var(--dim)}
+
+
+/* ---------- breadcrumbs ---------- */
+/* Marked up with microdata rather than a JSON-LD block, so the trail Google
+   reads is the same one on the screen and the page needs no inline script for
+   the Content-Security-Policy to make an exception for. */
+.crumbs{font-size:13.5px;color:var(--mute);margin:0 0 26px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.crumbs a{color:var(--dim)}
+.crumbs a:hover{color:var(--paper)}
+.crumbs .sep{color:var(--line)}
+.crumbs [aria-current]{color:var(--paper)}

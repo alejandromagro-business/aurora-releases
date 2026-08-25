@@ -5,10 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Privacy — Aurora</title>
 <meta name="description" content="What this site and the Aurora software collect, and what they don't." />
+<link rel="canonical" href="https://aurora-media.shop/privacy" />
+<meta property="og:title" content="Privacy — Aurora" />
+<meta property="og:description" content="What this site and the Aurora software collect, and what they don't." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aurora-media.shop/privacy" />
+<meta property="og:site_name" content="Aurora" />
+<meta property="og:image" content="https://aurora-media.shop/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="robots" content="index,follow" />
 <meta name="theme-color" content="#07080c" />
 <link rel="stylesheet" href="/fonts/fonts.css" />
 <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="stylesheet" href="/legal.css" />
 </head>
 <body>
@@ -23,6 +32,17 @@
 </header>
 
 <main>
+  <nav class="crumbs" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="/"><span itemprop="name">Aurora</span></a>
+      <meta itemprop="position" content="1" />
+    </span>
+    <span class="sep" aria-hidden="true">/</span>
+    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="https://aurora-media.shop/privacy" aria-current="page"><span itemprop="name">Privacy</span></a>
+      <meta itemprop="position" content="2" />
+    </span>
+  </nav>
   <h1>Privacy</h1>
   <p class="updated">Last updated: <span class="fill">14 August 2026</span></p>
 
@@ -143,6 +163,6 @@
   </nav>
 </footer>
 
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+<script src="/main.js" defer></script>
 </body>
 </html>
