@@ -1,0 +1,24 @@
+# Deploying the site to Cloudflare Workers.
+#
+# Workers rather than Pages: since March 2026 Workers serves static assets with
+# the same features, and Cloudflare points new projects there. Requests for
+# static files are free and unlimited, and there is no non-commercial
+# restriction, which is the reason for moving off Vercel's Hobby plan at all.
+#
+# There is no "main" script. Nothing here runs code: it is HTML, CSS, one small
+# JavaScript file and some images, so this is an assets-only Worker.
+
+name = "aurora-landing"
+compatibility_date = "2026-08-31"
+
+[assets]
+directory = "./landing"
+
+# Serve 404.html, with a real 404 status, for anything that does not exist.
+# Without this a missing page returns the bare Cloudflare error.
+not_found_handling = "404-page"
+
+# /privacy rather than /privacy.html or /privacy/ — matches the URLs already
+# written into the canonical tags, the sitemap and the breadcrumbs. Vercel did
+# this with "cleanUrls" plus "trailingSlash": false.
+html_handling = "drop-trailing-slash"
