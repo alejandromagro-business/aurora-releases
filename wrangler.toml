@@ -11,6 +11,20 @@
 name = "aurora-landing"
 compatibility_date = "2026-08-31"
 
+# The live domain. custom_domain makes Cloudflare create and own the DNS record
+# and the certificate, so there is nothing to keep in sync by hand.
+# Top level, above [assets]: in TOML a key after a table header belongs to that
+# table, and routes is not an assets setting.
+# Keep the workers.dev URL alive alongside the custom domains: declaring
+# routes turns it off by default, and it is the only way to reach the site
+# while the domain is still propagating.
+workers_dev = true
+
+routes = [
+  { pattern = "aurora-media.shop", custom_domain = true },
+  { pattern = "www.aurora-media.shop", custom_domain = true },
+]
+
 [assets]
 directory = "./landing"
 
