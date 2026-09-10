@@ -1,0 +1,10 @@
+.wrangler/
+.vercel/
+node_modules/
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.signing.key
+*.log

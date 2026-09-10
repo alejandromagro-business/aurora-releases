@@ -315,117 +315,87 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
      reviews yet and inventing them is what gets a site penalised. -->
 <script type="application/ld+json">
 [
- {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Aurora",
-  "applicationCategory": "MultimediaApplication",
-  "applicationSubCategory": "Media server",
-  "operatingSystem": "Windows, macOS, Linux",
-  "url": "https://aurora-media.shop/",
-  "description": "A self-hosted media server with a console-grade interface. Films, series, anime, documentaries and music, scanned from your own folders and streamed to any screen in the house.",
-  "screenshot": "https://aurora-media.shop/og.jpg",
-  "softwareHelp": "https://github.com/alejandromagro-business/aurora-releases",
-  "offers": [
-   {
-    "@type": "Offer",
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
     "name": "Aurora",
-    "price": "0",
-    "priceCurrency": "EUR",
-    "description": "The free core, with no time limit."
-   },
-   {
-    "@type": "Offer",
-    "name": "Aurora Plus — Lifetime",
-    "price": "99",
-    "priceCurrency": "EUR",
-    "description": "One payment, including every future Plus feature."
-   },
-   {
-    "@type": "Offer",
-    "name": "Aurora Plus — Yearly",
-    "price": "39",
-    "priceCurrency": "EUR",
-    "description": "Billed once a year. Cancel any time."
-   },
-   {
-    "@type": "Offer",
-    "name": "Aurora Plus — Monthly",
-    "price": "4.49",
-    "priceCurrency": "EUR",
-    "description": "Billed monthly. Cancel any time."
-   }
-  ]
- },
- {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-   {
-    "@type": "Question",
-    "name": "Does Aurora come with films or shows?",
-    "acceptedAnswer": {
-     "@type": "Answer",
-     "text": "No — and it never will. Aurora is an empty player: you point it at video files you already own and it organises them. The only content it offers is the Classic cinema catalogue, which is public-domain films hosted by the Internet Archive. Aurora links to them; it doesn't host or distribute anything."
-    }
-   },
-   {
-    "@type": "Question",
-    "name": "Where does my media live? Do you see any of it?",
-    "acceptedAnswer": {
-     "@type": "Answer",
-     "text": "On your own machine, and no. There is no cloud component. We never see your files, your library, or even that you're running Aurora. The licence key is verified by your own server using cryptography — it never contacts us, and Aurora keeps working with the network unplugged."
-    }
-   },
-   {
-    "@type": "Question",
-    "name": "What hardware do I need?",
-    "acceptedAnswer": {
-     "@type": "Answer",
-     "text": "Less than you'd think. A Raspberry Pi 5 runs it comfortably, and so does any old laptop, NAS or mini PC. It ships as a Docker image or a single binary for Linux, Windows and macOS. Transcoding is the only heavy part, and it's avoided whenever your device can play the file as-is."
-    }
-   },
-   {
-    "@type": "Question",
-    "name": "Is €99 really one payment?",
-    "acceptedAnswer": {
-     "@type": "Answer",
-     "text": "Yes. One payment, one licence, yours for good, including future Plus features. The monthly and yearly options exist for people who prefer not to pay up front, and everything you have paid on them comes off the lifetime price if you upgrade later. There's no upsell waiting."
-    }
-   },
-   {
-    "@type": "Question",
-    "name": "What happens if I stop paying the monthly plan?",
-    "acceptedAnswer": {
-     "@type": "Answer",
-     "text": "Aurora keeps working. Your libraries, users, history and settings are untouched — you simply lose the Plus conveniences until you renew. Nothing is held hostage, and a lapsed licence can never lock you out of your own library."
-    }
-   },
-   {
-    "@type": "Question",
-    "name": "Can I move it to another machine?",
-    "acceptedAnswer": {
-     "@type": "Answer",
-     "text": "Yes. The licence isn't tied to hardware, because that punishes honest people who reinstall or swap a disk. Move the data folder across and carry on."
-    }
-   },
-   {
-    "@type": "Question",
-    "name": "How do I get my key after paying?",
-    "acceptedAnswer": {
-     "@type": "Answer",
-     "text": "It arrives by email. Paste it into Dashboard → Aurora Plus and everything unlocks immediately, no restart and no internet connection needed."
-    }
-   }
-  ]
- },
- {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Aurora",
-  "url": "https://aurora-media.shop/",
-  "logo": "https://aurora-media.shop/icon.svg"
- }
+    "applicationCategory": "MultimediaApplication",
+    "applicationSubCategory": "Media server",
+    "operatingSystem": "Windows, macOS, Linux",
+    "url": "https://aurora-media.shop/",
+    "description": "A self-hosted media server with a console-grade interface. Films, series, anime, documentaries and music, scanned from your own folders and streamed to any screen in the house.",
+    "screenshot": "https://aurora-media.shop/og.jpg",
+    "softwareHelp": "https://github.com/alejandromagro-business/aurora-releases"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does Aurora come with films or shows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No — and it never will. Aurora is an empty player: you point it at video files you already own and it organises them. The only content it offers is the Classic cinema catalogue, which is public-domain films hosted by the Internet Archive. Aurora links to them; it doesn't host or distribute anything."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does my media live? Do you see any of it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On your own machine, and no. There is no cloud component. We never see your files, your library, or even that you're running Aurora. The licence key is verified by your own server using cryptography — it never contacts us, and Aurora keeps working with the network unplugged."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What hardware do I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Aurora runs on a Raspberry Pi, NAS, mini PC or desktop. Playback performance depends on the file and browser: direct play and remux are lightweight, while software transcoding of large HEVC files may be too demanding for a Raspberry Pi. Public builds for Linux, Windows and macOS are being prepared."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is €99 really one payment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The planned lifetime price is €99 as a one-off payment. Purchases are not open yet. Final licence scope, renewal and upgrade terms will be published before launch."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if I stop paying the monthly plan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Aurora keeps working. Your libraries, users, history and settings are untouched — you simply lose the Plus conveniences until you renew. Nothing is held hostage, and a lapsed licence can never lock you out of your own library."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I move it to another machine?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The licence isn't tied to hardware, because that punishes honest people who reinstall or swap a disk. Move the data folder across and carry on."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I get my key after paying?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Purchases are not open yet. Delivery details will be published before checkout is enabled. Aurora checks licence signatures locally on your server."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Aurora",
+    "url": "https://aurora-media.shop/",
+    "logo": "https://aurora-media.shop/icon.svg"
+  }
 ]
 </script>
 </head>
@@ -460,7 +430,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
     <a href="#pricing">Pricing</a>
     <a href="#faq" class="hide-sm">FAQ</a>
     <a href="#help" class="hide-sm">Help</a>
-    <a href="#pricing" class="btn btn-ghost" style="padding:9px 18px">Get Aurora</a>
+    <a href="#pricing" class="btn btn-ghost" style="padding:9px 18px">Explore Aurora</a>
   </nav>
 </header>
 
@@ -475,8 +445,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
         Nothing is uploaded anywhere. No subscription. No account with us. It runs on your hardware and answers only to you.
       </p>
       <div class="cta rise" style="animation-delay:.34s">
-        <a class="btn btn-primary" href="#pricing">Get Aurora Plus</a>
-        <a class="btn btn-ghost" href="#pricing">Download free</a>
+        <a class="btn btn-primary" href="#pricing">Explore Plus</a>
+        <a class="btn btn-ghost" href="#pricing">Downloads — coming soon</a>
         <span class="note">free core · no time limit</span>
       </div>
       <!-- A shell command said "this is a Linux thing", which it is not: there
@@ -529,13 +499,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
       </div>
       <div class="cell">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 4l14 8-14 8z"/></svg>
-        <h3>Plays anything, anywhere</h3>
+        <h3>Flexible playback, on your devices</h3>
         <p>Direct play when your device can handle the file, on-demand transcoding when it can't. Resume on the TV exactly where the laptop left off.</p>
       </div>
       <div class="cell">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M8 3l4 3 4-3"/></svg>
         <h3>Every screen you own</h3>
-        <p>An installer for Windows, macOS and Linux, and the browser everywhere else — including your television's, which drives the whole thing with the remote you already have: arrows, OK, back. No box to buy, nothing to sideload. A phone and tablet app is on its way.</p>
+        <p>Installers are being prepared for Windows, macOS and Linux, with browser access on other devices — including your television's, which drives the whole thing with the remote you already have: arrows, OK, back. No box to buy, nothing to sideload. A phone and tablet app is on its way.</p>
       </div>
       <div class="cell">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
@@ -606,7 +576,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
     <div class="obs">
       <div class="kicker">Honestly</div>
       <h2>How Aurora compares.</h2>
-      <p class="sub">Jellyfin is free and excellent. Plex and Emby are polished and expensive. Aurora sits where we'd want to sit as a customer.</p>
+      <p class="sub">Jellyfin, Plex and Emby are established alternatives. Aurora is still in development: compare the features you need and check each provider's current terms.</p>
     </div>
     <div class="tablewrap obs">
       <table>
@@ -614,44 +584,42 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
           <tr><th>&nbsp;</th><th class="us">Aurora</th><th>Jellyfin</th><th>Plex</th><th>Emby</th></tr>
         </thead>
         <tbody>
-          <tr><td>Price of the paid tier</td><td class="us">€99 once, or €39/yr</td><td>Free</td><td>$750 lifetime, or $70/yr</td><td>$119 lifetime, or $54/yr</td></tr>
+          <tr><td>Price of the paid tier</td><td class="us">Planned: €99 once, €39/yr or €4.49/mo</td><td>Free</td><td><a href="https://www.plex.tv/plex-pass/">Current plans</a></td><td><a href="https://emby.media/premiere.html">Current plans</a></td></tr>
           <tr><td>Account with the vendor</td><td class="us">None, ever</td><td>None</td><td>Required</td><td>Needed for Premiere</td></tr>
           <tr><td>Paid features verified offline</td><td class="us">Yes — nothing phones home</td><td>n/a</td><td>Periodic sign-in</td><td>Online check</td></tr>
           <tr><td>Intro detection</td><td class="us">Built in, by audio fingerprint</td><td>Community plugin</td><td>Paid tier</td><td>Paid tier</td></tr>
           <tr><td>Public-domain film catalogue</td><td class="us">Built in, ad-free</td><td>No</td><td>Free tier with adverts</td><td>No</td></tr>
           <tr><td>Yearly viewing recap</td><td class="us">Built in</td><td>Plugin</td><td>Yes</td><td>No</td></tr>
           <tr><td>Themes and full custom CSS</td><td class="us">Free, per device</td><td>Yes</td><td>No</td><td>Limited</td></tr>
-          <tr><td>Watch together, guests need no account</td><td class="us">Paid tier</td><td>Plugin, account needed</td><td>Account needed</td><td>Account needed</td></tr>
+          <tr><td>Watch together</td><td class="us">Plus: guest link, no Aurora account</td><td>Built-in SyncPlay, server accounts</td><td>Account needed</td><td>Check current support</td></tr>
           <tr><td>Connect your own streaming add-ons</td><td class="us">Paid tier</td><td>Plugin</td><td>No</td><td>No</td></tr>
           <tr><td>Remote-control navigation in the browser</td><td class="us">Yes — no app to install</td><td>Partial</td><td>No</td><td>Partial</td></tr>
           <tr><td>Subtitle search, any language</td><td class="us">Built in, matched to your file</td><td>Plugin</td><td>Paid tier</td><td>Paid tier</td></tr>
           <tr><td>Unlimited users included</td><td class="us">Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
           <tr><td>Phone and tablet app</td><td class="us">In build</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-          <tr><td>Desktop installer</td><td class="us">Windows, macOS, Linux</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-          <tr><td>Music libraries</td><td class="us">Free tier</td><td>Yes</td><td>Paid tier</td><td>Paid tier</td></tr>
+          <tr><td>Desktop installer</td><td class="us">In preparation</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Music libraries</td><td class="us">Free tier</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
           <tr><td>Updates from inside the app</td><td class="us">One button</td><td>Manual</td><td>Yes</td><td>Yes</td></tr>
           <tr><td>Hardware transcoding</td><td class="us">Built in, auto-detected</td><td>Yes</td><td>Paid tier</td><td>Paid tier</td></tr>
         </tbody>
       </table>
     </div>
-    <!-- Prices taken from the vendors' own pages and quoted in the currency
-         they charge in, rather than converted: a conversion is out of date the
-         day it is written and invites an argument about the rate. -->
     <p class="caption" style="text-align:left;margin-top:14px">
-      Competitor prices checked on their own sites on 31 August 2026, in the currency each of them quotes.
-      Plex raised its lifetime price from $250 to $750 on 1 July 2026. Features as published at that date —
-      please check before deciding.
+      Aurora's prices and launch scope are provisional. Competitor features can vary by platform and plan;
+      consult <a href="https://jellyfin.org/">Jellyfin</a>, <a href="https://www.plex.tv/">Plex</a> and
+      <a href="https://emby.media/">Emby</a> before deciding.
     </p>
   </section>
 
   <!-- ============ PRICING ============ -->
   <section id="pricing">
     <div class="obs">
-      <div class="kicker">Pricing</div>
+      <div class="kicker">Planned pricing</div>
       <h2>Pay once. Or don't pay at all.</h2>
       <p class="sub">The core is free forever and genuinely usable — not a demo. Plus adds the conveniences, and the licence is checked on your own machine.</p>
     </div>
 
+    <p id="launch-status" class="sub" role="note" style="margin:24px 0"><strong>Coming soon.</strong> Aurora is in development. Public downloads and Plus purchases are not open yet. Prices below are planned and may change before launch. No payments or reservations are taken here.</p>
     <div class="plans obs">
       <div class="plan">
         <h3>Aurora</h3>
@@ -661,7 +629,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
           <li><span class="tick">✦</span><span>Unlimited libraries, films, shows and <b>unlimited users</b></span></li>
           <li><span class="tick">✦</span><span>Automatic artwork and metadata</span></li>
           <li><span class="tick">✦</span><span>Direct play and on-demand transcoding</span></li>
-          <li><span class="tick">✦</span><span>Watched state, resume, favourites and <b>My list</b></span></li>
+          <li><span class="tick">✦</span><span>Watched state, resume and <b>Favourites</b></span></li>
           <li><span class="tick">✦</span><span>Remote-control navigation in any TV browser; phone and tablet app <span class="soon-tag">soon</span></span></li>
           <li><span class="tick">✦</span><span><b>Playlists</b> — your own, not shared with the rest of the house</span></li>
           <li><span class="tick">✦</span><span>Yearly viewing recap</span></li>
@@ -669,13 +637,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
           <li><span class="tick">✦</span><span><b>Themes and full custom CSS</b> — restyle every last thing, per device</span></li>
           <li><span class="tick">✦</span><span>Updates from inside the app, one button</span></li>
         </ul>
-        <a class="btn btn-ghost" href="https://github.com/alejandromagro-business/aurora-releases">Download</a>
+        <a class="btn btn-ghost" href="https://github.com/alejandromagro-business/aurora-releases">Read the documentation</a>
       </div>
 
       <div class="plan pro" data-tag="best value">
         <h3>Plus — Lifetime</h3>
         <div class="price">€99 <small>once, forever</small></div>
-        <p class="who">Pay once. Yours for good, including every future Plus feature, at no extra cost.</p>
+        <p class="who">Planned one-off licence. The final licence scope will be published before sales open.</p>
         <ul>
           <li><span class="tick">✦</span><span><b>Exact intro &amp; outro detection</b> by audio fingerprint</span></li>
           <li><span class="tick">✦</span><span><b>Online subtitles in any language</b> OpenSubtitles carries, matched to your exact file</span></li>
@@ -687,7 +655,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
           <li><span class="tick">✦</span><span><b>Bring your own sources</b> — connect the add-ons and streaming accounts you already pay for, and what they offer sits beside your own files</span></li>
           <li><span class="tick">✦</span><span><b>No renewals, ever.</b> No upsell waiting later</span></li>
         </ul>
-        <a class="btn btn-primary" href="#faq">Buy the lifetime licence</a>
+        <a class="btn btn-primary" href="#launch-status">Lifetime — coming soon</a>
       </div>
 
       <div class="plan sub">
@@ -698,9 +666,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
           <li><span class="tick">✦</span><span>Everything in the lifetime plan</span></li>
           <li><span class="tick">✦</span><span><b>Saves €14 a year</b> against paying monthly</span></li>
           <li><span class="tick">✦</span><span>Cancel any time; it simply stops renewing</span></li>
-          <li><span class="tick">✦</span><span>What you paid so far <b>comes off the lifetime price</b> if you upgrade</span></li>
+          <li><span class="tick">✦</span><span>Upgrade options will be confirmed before launch</span></li>
         </ul>
-        <a class="btn btn-ghost" href="#faq">Start yearly</a>
+        <a class="btn btn-ghost" href="#launch-status">Yearly — coming soon</a>
       </div>
 
       <div class="plan sub">
@@ -714,7 +682,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
           <li><span class="tick">✦</span><span>Your libraries, users and history are never touched</span></li>
           <li><span class="tick">✦</span><span>Switch to lifetime whenever you want</span></li>
         </ul>
-        <a class="btn btn-ghost" href="#faq">Start monthly</a>
+        <a class="btn btn-ghost" href="#launch-status">Monthly — coming soon</a>
       </div>
     </div>
 
@@ -748,11 +716,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
       </details>
       <details>
         <summary>What hardware do I need?</summary>
-        <p>Less than you'd think. A Raspberry Pi 5 runs it comfortably, and so does any old laptop, NAS or mini PC. It ships as a Docker image or a single binary for Linux, Windows and macOS. Transcoding is the only heavy part, and it's avoided whenever your device can play the file as-is.</p>
+        <p>Aurora runs on a Raspberry Pi, NAS, mini PC or desktop. Playback performance depends on the file and browser: direct play and remux are lightweight, while software transcoding of large HEVC files may be too demanding for a Raspberry Pi. Public builds for Linux, Windows and macOS are being prepared.</p>
       </details>
       <details>
         <summary>Is €99 really one payment?</summary>
-        <p>Yes. One payment, one licence, yours for good, including future Plus features. The monthly and yearly options exist for people who prefer not to pay up front, and everything you have paid on them comes off the lifetime price if you upgrade later. There's no upsell waiting.</p>
+        <p>The planned lifetime price is €99 as a one-off payment. Purchases are not open yet. Final licence scope, renewal and upgrade terms will be published before launch.</p>
       </details>
       <details>
         <summary>What happens if I stop paying the monthly plan?</summary>
@@ -764,7 +732,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
       </details>
       <details>
         <summary>How do I get my key after paying?</summary>
-        <p>It arrives by email. Paste it into Dashboard → Aurora Plus and everything unlocks immediately, no restart and no internet connection needed.</p>
+        <p>Purchases are not open yet. Delivery details will be published before checkout is enabled. Aurora checks licence signatures locally on your server.</p>
       </details>
     </div>
   </section>
@@ -806,8 +774,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
   <section class="close obs">
     <h2>Stop renting access to your own films.</h2>
     <div class="cta" style="justify-content:center;margin-top:34px">
-      <a class="btn btn-primary" href="#pricing">Get Aurora Plus</a>
-      <a class="btn btn-ghost" href="https://github.com/alejandromagro-business/aurora-releases">Download the free core</a>
+      <a class="btn btn-primary" href="#pricing">Explore Plus</a>
+      <a class="btn btn-ghost" href="https://github.com/alejandromagro-business/aurora-releases">Read the documentation</a>
     </div>
   </section>
 </main>

@@ -4,10 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Privacy — Aurora</title>
-<meta name="description" content="What this site and the Aurora software collect, and what they don't." />
+<meta name="description" content="Aurora preview: public downloads and Plus purchases are coming soon." />
 <link rel="canonical" href="https://aurora-media.shop/privacy" />
 <meta property="og:title" content="Privacy — Aurora" />
-<meta property="og:description" content="What this site and the Aurora software collect, and what they don't." />
+<meta property="og:description" content="Aurora preview: public downloads and Plus purchases are coming soon." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://aurora-media.shop/privacy" />
 <meta property="og:site_name" content="Aurora" />
@@ -32,125 +32,20 @@
 </header>
 
 <main>
-  <nav class="crumbs" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <a itemprop="item" href="/"><span itemprop="name">Aurora</span></a>
-      <meta itemprop="position" content="1" />
-    </span>
-    <span class="sep" aria-hidden="true">/</span>
-    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <a itemprop="item" href="https://aurora-media.shop/privacy" aria-current="page"><span itemprop="name">Privacy</span></a>
-      <meta itemprop="position" content="2" />
-    </span>
-  </nav>
-  <h1>Privacy</h1>
-  <p class="updated">Last updated: <span class="fill">14 August 2026</span></p>
-
-  <div class="notice">
-    <p><strong>Before publishing:</strong> replace every <span class="fill">[[PLACEHOLDER]]</span> on this page.
-    This is a starting draft written for a small software seller in the EU, not legal advice — have it checked
-    if you are unsure.</p>
-  </div>
-
-  <div class="tldr">
-    <p>The Aurora software collects nothing and contacts no server of ours, ever. This website has no analytics
-    and sets no cookies. If you buy a licence, our payment provider handles your details, and we see your name,
-    email and country — enough to issue the key and keep the invoice.</p>
-  </div>
-
-  <h2>Who is responsible</h2>
-  <p>
-    The data controller is <span class="fill">Aurora</span>, operating from
-    <span class="fill">Spain</span>. Payments and billing data are handled by
-    <span class="fill">[[PAYMENT PROVIDER]]</span> as merchant of record, who is the seller and the
-    controller for everything to do with the transaction. Contact: <span class="fill">[[CONTACT EMAIL]]</span>.
-  </p>
-
-  <h2>The Aurora software</h2>
-  <p>
-    Aurora runs on hardware you control. It has no telemetry, no crash reporting, no update ping and no account
-    system of ours. It never sends us your library, your viewing history or anything else, because there is
-    nowhere for it to send them.
-  </p>
-  <p>
-    <strong>Licence keys are verified offline.</strong> A key is a signed token; your server checks the signature
-    with a public key built into the binary. Activating Aurora Plus makes no network request and works with the
-    machine disconnected from the internet.
-  </p>
-  <p>
-    Aurora does reach third parties that <em>you</em> configure, using <em>your</em> credentials, directly from
-    your server: TMDB for artwork and descriptions, AniList for anime, and optionally TheTVDB, OpenSubtitles and
-    any source adapters you add. Those requests never pass through us. Each of those services has its own privacy
-    policy and your keys stay in your own database.
-  </p>
-
-  <h2>This website</h2>
-  <table>
-    <tr><th>What</th><th>Why</th><th>Kept</th></tr>
-    <tr>
-      <td>Server access logs (IP, page, user agent, timestamp)</td>
-      <td>Kept by our host to serve the site and mitigate abuse. Legitimate interest.</td>
-      <td><span class="fill">30 days</span></td>
-    </tr>
-    <tr>
-      <td>Web fonts</td>
-      <td>Served from this domain. Rendering this page contacts no third party at all.</td>
-      <td>—</td>
-    </tr>
-  </table>
-  <p>
-    There is no analytics, no advertising, no tracking pixel, and no cookie banner because there are no cookies
-    to consent to. The fonts are self-hosted, so no request leaves for Google or anyone else when you load a
-    page here. The site is hosted by <span class="fill">Vercel Inc.</span>, which acts as a
-    processor.
-  </p>
-
-  <h2>Buying a licence</h2>
-  <p>
-    Payments are handled by <span class="fill">[[PAYMENT PROVIDER]]</span>, who acts as merchant of record.
-    <strong>We never see your card details</strong> — they never reach our systems. From the purchase we receive
-    your name, email address, country and the order reference.
-  </p>
-  <ul>
-    <li><strong>Why:</strong> to deliver the licence key you bought (performance of a contract) and to keep the
-      invoice (legal obligation).</li>
-    <li><strong>How long:</strong> the licence record for as long as the licence is valid; invoices for
-      <span class="fill">6 years, as Spanish accounting rules require</span>.</li>
-    <li><strong>Who else sees it:</strong> the payment provider, and nobody else. Your data is not sold, rented
-      or shared for advertising, and it is not used to train anything.</li>
-  </ul>
-  <p>
-    If you email us for support, we keep that thread until the matter is closed and for a reasonable period
-    afterwards.
-  </p>
-
-  <h2>Transfers outside the EEA</h2>
-  <p>
-    Our hosting and payment providers may process data outside the European Economic Area under the European
-    Commission's standard contractual clauses or an adequacy decision.
-  </p>
-
-  <h2>Your rights</h2>
-  <p>
-    You can ask for a copy of your data, its correction or deletion, restriction of processing, portability, and
-    you can object to processing based on legitimate interest. Write to
-    <span class="fill">[[CONTACT EMAIL]]</span> and we will answer within one month. If you are not satisfied
-    you can complain to your national data-protection authority
-    (<span class="fill">the Agencia Española de Protección de Datos, AEPD</span>).
-  </p>
-  <p>
-    Deleting your data does not switch off a licence key you already hold: keys are verified offline and your
-    copy keeps working.
-  </p>
-
-  <h2>Children</h2>
-  <p>Aurora is not directed at children and we do not knowingly collect their data.</p>
-
-  <h2>Changes</h2>
-  <p>
-    If this policy changes, the date at the top changes with it. Material changes affecting existing customers
-    will be sent to the email address on the order.
-  </p>
+  <h1>Privacy during the preview</h1>
+  <p class="updated">Updated: 10 September 2026</p>
+  <div class="tldr"><p>This preview has no checkout, registration form, mailing list, advertising or analytics scripts. Images and fonts are served with the website.</p></div>
+  <h2>Visiting this website</h2>
+  <p>Cloudflare hosts the site and processes request information such as IP addresses, requested pages, browser information and timestamps to deliver and protect it. See <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare's privacy policy</a> for its processing practices. We have not configured application-level visitor tracking or a visitor database.</p>
+  <p>The site does not set application cookies or store information in your browser's local storage. Hosting and security services may process technical information according to their own policies.</p>
+  <h2>Links to GitHub</h2>
+  <p>Documentation and general support link to GitHub. GitHub processes visits and account activity under <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">its privacy policy</a>. Issues and comments in the public repository are visible to others: do not post account details, private paths, credentials or licence keys.</p>
+  <h2>The Aurora application</h2>
+  <p>Your library, accounts and viewing progress are stored on your own Aurora server. Services used for metadata, artwork, subtitles, updates or external sources receive the requests needed for those features. Their policies apply to those requests. Licence signatures are verified locally.</p>
+  <h2>Before purchases open</h2>
+  <p>This site does not currently collect payment or order information. The seller, payment provider, private contact channel and applicable data-handling information will be published before checkout or customer registration is enabled.</p>
+  <h2>General questions</h2>
+  <p>You can ask non-sensitive questions in <a href="https://github.com/alejandromagro-business/aurora-releases/issues">the public project tracker</a>. It is not a channel for sharing personal information.</p>
 </main>
 
 <footer>

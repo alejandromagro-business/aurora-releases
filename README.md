@@ -7,11 +7,16 @@ your network.
 One Go binary plus a web app. No cloud, no account anywhere but your own machine, no
 telemetry, and nothing to sign into.
 
-**[Download the latest release](../../releases/latest)** · [aurora-media.shop](https://aurora-media.shop)
+**Public downloads and Plus purchases are coming soon.** · [aurora-media.shop](https://aurora-media.shop)
+
+There are currently no public installation packages or Android APKs. The installation
+guide below documents the intended package layout for future releases; download steps
+will only work once verified builds are published. Do not pay for access or download
+unofficial builds claiming to be Aurora.
 
 > This repository is where Aurora is published and documented, and where to report a
 > problem. The source code is not here: Aurora is licensed software, not open source.
-> Everything needed to install it, run it and get help with it is below.
+> Installation documentation for future releases and help are below.
 
 **Found a bug, or something behaving oddly?** [Open an issue](../../issues/new) — the
 version from **Panel de control → Actualizaciones**, what you did, and what happened
@@ -171,8 +176,8 @@ end in a running server rather than a stopped one.
 
 ## Docker
 
-An official image is not published yet. Until it is, use one of the archives above —
-they are a single static binary and need nothing installed.
+An official image is not published yet. Public archives are also pending; there is
+currently no supported public download to install.
 
 ---
 

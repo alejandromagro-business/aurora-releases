@@ -1,0 +1,6 @@
+**/*.md
+vercel.json
+**/*.map
+.env*
+**/*.key
+**/*.pem
