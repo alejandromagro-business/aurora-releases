@@ -1,6 +1,6 @@
 [Unit]
 Description=Aurora Media Server
-Documentation=https://github.com/alejandromagro-business/aurora
+Documentation=https://github.com/aurora-media/aurora
 After=network-online.target
 Wants=network-online.target
 

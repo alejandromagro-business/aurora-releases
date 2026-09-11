@@ -75,7 +75,7 @@ On Windows you can also download a build from
 
 ## Install with an installer
 
-Download from [Releases](https://github.com/alejandromagro-business/aurora-releases/releases) and run it. Each installer registers Aurora
+Download from [Releases](https://github.com/aurora-media/aurora-releases/releases) and run it. Each installer registers Aurora
 to start with the machine, so your library is there whenever the machine is on.
 
 ### Windows
@@ -207,7 +207,7 @@ scrapers entirely.
 
 **Panel de control → Actualizaciones.**
 
-Aurora checks [aurora-releases](https://github.com/alejandromagro-business/aurora-releases/releases)
+Aurora checks [aurora-releases](https://github.com/aurora-media/aurora-releases/releases)
 for a newer build **of its own platform**, shows what changed,
 and one button downloads it, swaps itself and restarts. The browser waits for the
 server to come back and offers a reload.
