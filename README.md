@@ -433,6 +433,11 @@ your own database or environment, never in this repo.
 Paste the TMDB key in **Panel de control → Plugins**, or set `TMDB_API_KEY` (see
 `.env.example`). Without one Aurora still runs; titles just keep their filename.
 
+The language metadata comes back in — titles, synopses, collection names — is the
+**Metadata language** field on the same panel, or `TMDB_LANGUAGE` (`es-ES`, `en-US`,
+`fr-FR`…). The panel wins over the variable. It defaults to `es-ES`; after changing it,
+rescrape a library to apply it to what is already catalogued.
+
 There is no IMDb API to use: IMDb sells bulk datasets and has no free public API. TMDB
 is the free equivalent, and it hands back IMDb ids, which is what external source
 adapters index on.
